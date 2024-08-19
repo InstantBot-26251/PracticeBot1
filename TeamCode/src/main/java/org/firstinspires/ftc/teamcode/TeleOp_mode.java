@@ -9,12 +9,19 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 @TeleOp(name="guilliesTeleOp")
 public class TeleOp_mode extends OpMode{
     DcMotorEx fl;
-
     DcMotorEx fr;
-
     DcMotorEx bl;
-
     DcMotorEx br;
+    double y;
+    double x;
+    double rx;
+    double denominator;
+    double frontLeftPower;
+    double frontRightPower;
+    double backLeftPower;
+    double backRightPower;
+
+
     @Override
     public void init() {
         fl = hardwareMap.get(DcMotorEx.class, "frontLeft");
@@ -25,15 +32,21 @@ public class TeleOp_mode extends OpMode{
         bl.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         br = hardwareMap.get(DcMotorEx.class, "backRight");
         br.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        fr.setDirection(DcMotorSimple.Direction.REVERSE);
-        br.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     @Override
     public void loop() {
-        fl.setPower(gamepad1.left_stick_y);
-        fr.setPower(gamepad1.right_stick_y);
-        bl.setPower(gamepad1.left_stick_y);
-        br.setPower(gamepad1.right_stick_y);
+        y = gamepad1.left_stick_y;
+        x = gamepad1.left_stick_x;
+        rx = gamepad1.right_stick_y;
+        denominator =  Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
+        frontLeftPower = (y + x + rx) / denominator;
+        frontRightPower = (y - x - rx) / denominator;
+        backLeftPower = (y - x + rx) / denominator;
+        backRightPower = (y + x - rx)/ denominator;
+        fl.setPower(frontLeftPower);
+        fr.setPower(frontRightPower);
+        bl.setPower(backLeftPower);
+        br.setPower(backRightPower);
     }
 }
