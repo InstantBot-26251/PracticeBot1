@@ -2,61 +2,59 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-//A VERY VERY BASIC TANK DRIVE WITH JUST 2 MOTORS
-//WE WILL CHANGE TO MECANUM LATER
-//NOT ARCADE-DRIVE
-
-//   ^------^
-//  /  ^  ^  \
-//  |   o    |
-//  \_______/
-
-@TeleOp(name="IshaanTeleOp")
+@TeleOp
 
 public class TeleOpMode extends OpMode {
-    //Register devices
-    DcMotorEx fl;
-    DcMotorEx fr;
-    DcMotorEx bl;
-    DcMotorEx br;
+    DcMotorEx frontRight;
+    DcMotorEx frontLeft;
+    DcMotorEx backRight;
+    DcMotorEx backLeft;
+    double y;
+    double x;
+    double rx;
+    double denominator;
+    double frontLeftPower;
+    double frontRightPower;
+    double backLeftPower;
+    double backRightPower;
 
     @Override
     public void init() {
-        fl = hardwareMap.get(DcMotorEx.class, "frontLeft");
-        fl.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        fr = hardwareMap.get(DcMotorEx.class, "frontRight");
-        fr.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        bl = hardwareMap.get(DcMotorEx.class, "backLeft");
-        bl.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        br = hardwareMap.get(DcMotorEx.class, "backRight");
-        br.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        br.setDirection(DcMotorSimple.Direction.REVERSE);
-        fr.setDirection(DcMotorSimple.Direction.REVERSE);
-
-    }
-//VisAI?!?!?!?!
-    //ViperSlide?!?!?
-    @Override
-    public void loop() {
-        telemetry.addData("Ishaan_is", "COOL");
-        telemetry.addData("LS-Y", gamepad1.left_stick_y);
-        telemetry.addData("RS-Y", gamepad1.right_stick_y);
-
-        fl.setPower(gamepad1.left_stick_y);
-        fr.setPower(gamepad1.right_stick_y);
-        bl.setPower(gamepad1.left_stick_y);
-        br.setPower(gamepad1.right_stick_y);
-
-        telemetry.addData("Ishaan_is", "COOL");
-        telemetry.addData("LS-Y", gamepad1.left_stick_y);
-        telemetry.addData("RS-Y", gamepad1.right_stick_y);
+        telemetry.addData("Initializing", "True");
 
         telemetry.update();
-        //I needed this apparently
+
+        frontRight = hardwareMap.get(DcMotorEx.class, "frontRight");
+        backRight = hardwareMap.get(DcMotorEx.class, "backRight");
+        frontLeft = hardwareMap.get(DcMotorEx.class, "frontLeft");
+        backLeft = hardwareMap.get(DcMotorEx.class, "backLeft");
+        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
+
+    @Override
+    public void loop() {
+
+        telemetry.addData("Ishaan", "is AWESOME!");
+        telemetry.addData("LS-Y", gamepad1.left_stick_y);
+        telemetry.addData("LS-X", gamepad1.left_stick_x);
+        telemetry.addData("RS-X", gamepad1.right_stick_x);
+
+        y = gamepad1.left_stick_y;
+        x = gamepad1.left_stick_x;
+        rx = gamepad1.right_stick_x;
+        denominator = Math.max(Math.abs(x) + Math.abs(y) + Math.abs(rx), 1);
+        frontLeftPower = (y + x + rx) / denominator;
+        frontRightPower = (y - x - rx) / denominator;
+        backLeftPower = (y - x + rx) / denominator;
+        backRightPower = (y + x - rx) / denominator;
+
+        frontRight.setPower(frontRightPower);
+        frontLeft.setPower(frontLeftPower);
+        backLeft.setPower(backLeftPower);
+        backRight.setPower(backRightPower);
     }
 }
-
-//LIBRARIES?!?!?!?!?!?!?
