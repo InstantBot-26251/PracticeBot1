@@ -27,6 +27,7 @@ public class TeleOpMode extends OpMode {
 
         driveTrain.drive(x, y, rx);
 
+        telemetry.addData("Initialization", "Complete");
         telemetry.addData("left stick y", gamepad1.left_stick_y);
         telemetry.addData("right stick y", gamepad1.right_stick_y);
         telemetry.addData("left stick x", gamepad1.left_stick_x);
