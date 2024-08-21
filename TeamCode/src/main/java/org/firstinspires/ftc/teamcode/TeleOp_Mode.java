@@ -58,8 +58,8 @@ public class TeleOp_Mode extends OpMode {
         backRightPower = (y + x - rx)/ denominator;
 
         fl.setPower(frontLeftPower);
-        fr.setPower(backLeftPower) ;
-        bl.setPower(frontRightPower);
+        fr.setPower(frontRightPower) ;
+        bl.setPower(backLeftPower);
         br.setPower(backRightPower);
 
 
