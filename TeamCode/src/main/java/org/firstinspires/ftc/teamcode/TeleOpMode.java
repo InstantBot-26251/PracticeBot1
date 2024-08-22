@@ -33,12 +33,14 @@ public class TeleOpMode extends OpMode {
         telemetry.addData("LS-X", gamepad1.left_stick_x);
         telemetry.addData("RS-X", gamepad1.right_stick_x);
 
-        y = gamepad1.left_stick_y;
-        x = -gamepad1.left_stick_x;
-        rx = -gamepad1.right_stick_x;
+        y = Math.pow(gamepad1.left_stick_y, 2);
+        x = Math.pow(-gamepad1.left_stick_x, 2);
+        rx = Math.pow(-gamepad1.right_stick_x, 2);
+
 
     }
 }
+//KiCad
 //Laptop and TV and Game manual, Java, Inventr teach and learn, 3d pronter wire from cieling
 // STMS Scedule, Teen Adv Brd., New RAV4, etc. etc., etc. NEW ROUTER
 //Setup new laptop
