@@ -6,10 +6,11 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class LiftAvyukt {
     DcMotorEx lift;
-    PIDFController pidf = new PIDFController(kp, ki, kd, kf:1);
+    PIDFController pidf = new PIDFController(kp, ki, kd, kf);
     public static double kp = 0;
     public static double ki = 0.0;
     public static double kd = 0.0;
+    public static double kf = 0;
 
     public LiftAvyukt(HardwareMap hardwareMap) {
 
