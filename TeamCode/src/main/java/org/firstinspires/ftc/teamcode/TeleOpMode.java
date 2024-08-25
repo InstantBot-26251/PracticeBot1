@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp (name = "AvyuktTeleOp")
-public class TeleOpMode extends OpMode {
+public class TeleOpModeAvyukt extends OpMode {
 ChassisAvyukt theAmazingChassis;
 double x;
 double y;
@@ -35,3 +35,5 @@ LiftAvyukt liftAvyukt;
         theAmazingChassis.drive(x,y,rx);
     }
 }
+
+
