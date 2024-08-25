@@ -21,12 +21,14 @@ LiftAvyukt liftAvyukt;
         y = -gamepad1.left_stick_y;
         x = gamepad1.left_stick_x * 1.1;
         rx = gamepad1.right_stick_x;
-        telemetry.addData("Lift Encoder", LiftAvyukt.getEncoderValue());
-        telemetry.addData("Initialization", value: "Complete");
+        telemetry.addData("Lift Encoder", liftAvyukt.getEncoderValue());
+        telemetry.addData("Initialization", "Complete");
         telemetry.addData("left stick y", gamepad1.left_stick_y);
         telemetry.addData("right stick y", gamepad1.right_stick_y);
         telemetry.addData("left stick x", gamepad1.left_stick_x);
         telemetry.addData("right stick x", gamepad1.right_stick_x);
+
+        telemetry.update();
 
         theAmazingChassis.drive(x,y,rx);
     }
