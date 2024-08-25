@@ -7,37 +7,51 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp
-
+//
 public class TeleOpMode extends OpMode {
 
     double y;
     double x;
     double rx;
+
     ChassisIshaan drivetrain;
+    LiftIshaan LiftKit;
 
     @Override
     public void init() {
 
         drivetrain = new ChassisIshaan(hardwareMap);
+        LiftKit = new LiftIshaan(hardwareMap);
 
 
     }
-//LIBRARIES?!?!?!?!?!?!?!?!?! for servos
+
+    //LIBRARIES?!?!?!?!?!?!?!?!?! for servos
     @Override
     public void loop() {
+        if (gamepad1.options) {
+            drivetrain.resetYaw();
+        }
 
-        drivetrain.drive(x, y, rx);
+        y = applyResponseCurve(gamepad1.left_stick_y);
+        x = -applyResponseCurve(gamepad1.left_stick_x);
+        rx = -applyResponseCurve(gamepad1.right_stick_x);
 
-        telemetry.addData("Ishaan", "is AWESOME!");
+        drivetrain.drive(x,y,rx);
+        LiftKit.drive(-gamepad2.left_stick_y);
+
+        telemetry.addData("Ishaan", "IS COOL MORE THAN LAKSH");
         telemetry.addData("LS-Y", gamepad1.left_stick_y);
         telemetry.addData("LS-X", gamepad1.left_stick_x);
         telemetry.addData("RS-X", gamepad1.right_stick_x);
-
-        y = Math.pow(gamepad1.left_stick_y, 2);
-        x = Math.pow(-gamepad1.left_stick_x, 2);
-        rx = Math.pow(-gamepad1.right_stick_x, 2);
+        telemetry.addData("RGPD-LS-Y", gamepad2.left_stick_y);
+        telemetry.addData("LiftEncoderVal", LiftKit.GetEncoderValue());
 
 
+    }
+    public double applyResponseCurve(double input) {
+        double exponent = 2;
+        return Math.signum(input) * Math.pow(Math.abs(input), exponent);
     }
 }
 //KiCad
