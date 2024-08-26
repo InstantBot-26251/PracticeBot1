@@ -1,5 +1,7 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.vyan;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -16,6 +18,7 @@ public class VyanTeleOpMode extends OpMode {
     public void init() {
         driveTrain = new ChassisVyan(hardwareMap);
         liftKit = new LiftVyan(hardwareMap);
+        telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
     }
 
     @Override
@@ -24,15 +27,24 @@ public class VyanTeleOpMode extends OpMode {
         x = -applyResponseCurve(gamepad1.left_stick_x);
         rx = -applyResponseCurve(gamepad1.right_stick_x);
 
+        if (gamepad2.dpad_up)
+            liftKit.toPoint(-1000);
+        if (gamepad2.dpad_down)
+            liftKit.toPoint(0);
+
+        liftKit.setPower();
+
         driveTrain.drive(x, y, rx);
-        liftKit.drive(-gamepad2.left_stick_y);
 
         telemetry.addData("Initialization", "Complete");
+        telemetry.addData("sliderX", x);
+        telemetry.addData("sliderY", y);
+        telemetry.addData("sliderRX", rx);
         telemetry.addData("left stick y", gamepad1.left_stick_y);
         telemetry.addData("right stick y", gamepad1.right_stick_y);
         telemetry.addData("left stick x", gamepad1.left_stick_x);
         telemetry.addData("right stick x", gamepad1.right_stick_x);
-        telemetry.addData("Right gamepad Left stick y", gamepad2.left_stick_y);
+        telemetry.addData("Right Gamepad Left stick y", gamepad2.left_stick_y);
         telemetry.addData("LiftEncoderValue", liftKit.getEncoderValue());
         telemetry.addData("Vyan", "THE Great");
 
