@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.lakshya;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -38,6 +38,7 @@ public class ChassisLakshya {
         ));
         imu.initialize(parameters);
     }
+
     public void resetYaw() {
         imu.resetYaw();
     }

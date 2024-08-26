@@ -1,5 +1,7 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.lakshya;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -17,7 +19,7 @@ public class TeleOp_Mode extends OpMode {
         theBetterChassis = new ChassisLakshya(hardwareMap);
         theBetterLift = new LiftLakshya(hardwareMap);
 
-        theBetterLift.lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry() );
     }
 
     @Override
@@ -26,7 +28,8 @@ public class TeleOp_Mode extends OpMode {
         x = -applyResponseCurve(gamepad1.left_stick_x);
         rx = -applyResponseCurve(gamepad1.right_stick_x);
 
-        telemetry.addData("Lift Encoder", theBetterLift.encoderValue());
+        telemetry.addData("Lift Encoder", theBetterLift.getEncoderValue());
+        telemetry.addData("Lift Setpoint", theBetterLift.getSetPoint());
         telemetry.addData("Left stick y", gamepad1.left_stick_y);
         telemetry.addData("Left stick x", gamepad1.left_stick_x);
         telemetry.addData("Right stick x", gamepad1.right_stick_x);
@@ -34,12 +37,19 @@ public class TeleOp_Mode extends OpMode {
         telemetry.addData("Adjusted y", y);
         telemetry.addData("Adjusted rx", rx);
 
-        if(gamepad1.y){
+        if (gamepad1.y) {
             theBetterChassis.resetYaw();
         }
 
+        if (gamepad2.dpad_up) {
+            theBetterLift.toPoint(-200);
+        }
+        if (gamepad2.dpad_down) {
+            theBetterLift.toPoint(0);
+        }
+        theBetterLift.setPower();
+
         theBetterChassis.drive(x, y, rx);
-        theBetterLift.drive(-gamepad2.left_stick_y);
 
         telemetry.update();
     }
@@ -50,3 +60,5 @@ public class TeleOp_Mode extends OpMode {
     }
 
 }
+// git fetch
+//git pull

@@ -8,7 +8,7 @@ package org.firstinspires.ftc.teamcode.util;
  * <p>
  * The equation we will use is:
  * u(t) = kP * e(t) + kI * int(0,t)[e(t')dt'] + kD * e'(t) + kF
- * where e(t) = r(t) - y(t) and r(t) is the setpoint and y(t) is the
+ * where e(t) = r(t) - y(t) and r(t) is the set point and y(t) is the
  * measured value. If we consider e(t) the positional error, then
  * int(0,t)[e(t')dt'] is the total error and e'(t) is the velocity error.
  */
