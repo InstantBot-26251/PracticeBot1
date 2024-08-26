@@ -1,10 +1,7 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.ishaan;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp
 //
@@ -33,12 +30,23 @@ public class TeleOpMode extends OpMode {
             drivetrain.resetYaw();
         }
 
+        if (gamepad2.dpad_up) {
+
+            LiftKit.toPosition(-1000);
+        }
+        
+        if (gamepad2.dpad_down){
+            
+            LiftKit.toPosition(0);
+        }
+
+
         y = applyResponseCurve(gamepad1.left_stick_y);
         x = -applyResponseCurve(gamepad1.left_stick_x);
         rx = -applyResponseCurve(gamepad1.right_stick_x);
 
-        drivetrain.drive(x,y,rx);
-        LiftKit.drive(-gamepad2.left_stick_y);
+        drivetrain.drive(x, y, rx);
+
 
         telemetry.addData("Ishaan", "IS COOL MORE THAN LAKSH");
         telemetry.addData("LS-Y", gamepad1.left_stick_y);
@@ -49,11 +57,26 @@ public class TeleOpMode extends OpMode {
 
 
     }
+
+
     public double applyResponseCurve(double input) {
         double exponent = 2;
         return Math.signum(input) * Math.pow(Math.abs(input), exponent);
     }
 }
+
+
+//Git fetch
+//git pull
+
+
+
+
+
+
+
+
+
 //KiCad
 //Laptop and TV and Game manual, Java, Inventr teach and learn, 3d pronter wire from cieling
 // STMS Scedule, Teen Adv Brd., New RAV4, etc. etc., etc. NEW ROUTER
