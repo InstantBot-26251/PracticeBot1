@@ -41,5 +41,9 @@ public class LiftLakshya {
     public double getEncoderValue() {
         return lift.getCurrentPosition();
     }
+
+    public void stop() {
+        lift.setPower(0);
+    }
 }
 

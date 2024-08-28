@@ -19,7 +19,7 @@ public class TeleOp_Mode extends OpMode {
         theBetterChassis = new ChassisLakshya(hardwareMap);
         theBetterLift = new LiftLakshya(hardwareMap);
 
-        telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry() );
+        telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
     }
 
     @Override

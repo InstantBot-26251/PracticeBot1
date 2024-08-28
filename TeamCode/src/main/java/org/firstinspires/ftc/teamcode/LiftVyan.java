@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class LiftVyan {
-
     DcMotorEx Lift;
     public static int LIFT_TOP = -1250;
     public static int LIFT_BOTTOM = -1;
